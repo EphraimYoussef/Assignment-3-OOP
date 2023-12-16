@@ -1,7 +1,137 @@
+// Header
+
+// This class represents a 6 x 7 board
+// used in 4-in-row game
+class connect_four_Board : public Board {
+public:
+    connect_four_Board();
+
+    bool update_board (int x,int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool toRightUp(int x,int y);
+    bool toLeftDown(int x,int y);
+    bool toLeftUp(int x,int y);
+    bool toRightDown(int x,int y);
+    bool toUp(int x, int y);
+    bool toDown(int x, int y);
+    bool toLeft(int x, int y);
+    bool toRight(int x, int y);
+    bool is_draw();
+    bool game_is_over();
+    friend class AiPlayer;
+    friend class Player;
+};
+//////////////////////////////////////////////////
+
+
+
 // Class definition for connect_four_Board class
 // Author: Ramez Ragaay Makram Zaki
 // Date: 12/15/2023
 // Version: 1
+
+
+
+// This class represents a 6 x 7 board
+// used in 4-in-row game
+class connect_four_Board : public Board {
+public:
+    connect_four_Board();
+
+    bool update_board (int x,int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool toRightUp(int x,int y);
+    bool toLeftDown(int x,int y);
+    bool toLeftUp(int x,int y);
+    bool toRightDown(int x,int y);
+    bool toUp(int x, int y);
+    bool toDown(int x, int y);
+    bool toLeft(int x, int y);
+    bool toRight(int x, int y);
+    bool is_draw();
+    bool game_is_over();
+    friend class AiPlayer;
+    friend class Player;
+};
+//////////////////////////////////////////////////
+// Header
+
+// This class represents a 6 x 7 board
+// used in 4-in-row game
+class connect_four_Board : public Board {
+public:
+    connect_four_Board();
+
+    bool update_board (int x,int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool toRightUp(int x,int y);
+    bool toLeftDown(int x,int y);
+    bool toLeftUp(int x,int y);
+    bool toRightDown(int x,int y);
+    bool toUp(int x, int y);
+    bool toDown(int x, int y);
+    bool toLeft(int x, int y);
+    bool toRight(int x, int y);
+    bool is_draw();
+    bool game_is_over();
+    friend class AiPlayer;
+    friend class Player;
+};
+//////////////////////////////////////////////////
+// Header
+
+// This class represents a 6 x 7 board
+// used in 4-in-row game
+class connect_four_Board : public Board {
+public:
+    connect_four_Board();
+
+    bool update_board (int x,int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool toRightUp(int x,int y);
+    bool toLeftDown(int x,int y);
+    bool toLeftUp(int x,int y);
+    bool toRightDown(int x,int y);
+    bool toUp(int x, int y);
+    bool toDown(int x, int y);
+    bool toLeft(int x, int y);
+    bool toRight(int x, int y);
+    bool is_draw();
+    bool game_is_over();
+    friend class AiPlayer;
+    friend class Player;
+};
+//////////////////////////////////////////////////
+// Header
+
+// This class represents a 6 x 7 board
+// used in 4-in-row game
+class connect_four_Board : public Board {
+public:
+    connect_four_Board();
+
+    bool update_board (int x,int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool toRightUp(int x,int y);
+    bool toLeftDown(int x,int y);
+    bool toLeftUp(int x,int y);
+    bool toRightDown(int x,int y);
+    bool toUp(int x, int y);
+    bool toDown(int x, int y);
+    bool toLeft(int x, int y);
+    bool toRight(int x, int y);
+    bool is_draw();
+    bool game_is_over();
+    friend class AiPlayer;
+    friend class Player;
+};
+//////////////////////////////////////////////////
+
 
 #include <iostream>
 #include <random>
