@@ -1,7 +1,26 @@
-// Class definition for Tic_Tec_Toe class
-// Which is a new game generated from class Board
-// Author:  Abdel_Rahman Kadry
-// Date:    10/10/2022
+// Header
+
+class Tic_Tec_Toe : public Board {
+
+public:
+    char player1Sign  = 'X', player2Sign = 'O' ;
+    int  player1Counter = 0 , player2Counter = 0 ;
+
+
+    Tic_Tec_Toe();
+    bool update_board (int x, int y, char mark);
+    void display_board();
+    bool is_winner();
+    bool is_draw();
+    bool game_is_over();
+    bool chcek_valid(int x , int y );
+
+};
+
+
+
+//Implement
+
 #include <bits/stdc++.h>
 #include"../include/BoardGame_Classes.hpp"
 using namespace std;
