@@ -373,10 +373,13 @@ bool Tic_Tec_Toe::check_valid(int x, int y) {
 
 /*====================================================================================*/
 
+// connect_four_Board Class Constructor
 connect_four_Board::connect_four_Board() {
     n_rows = 6;
     n_cols = 7;
     is4InRow = true;
+
+    // Allocate memory for the board and initialize cells
     board = new char*[n_rows];
     for (int i = 0; i < n_rows; ++i) {
         board [i] = new char[n_cols];
@@ -386,6 +389,7 @@ connect_four_Board::connect_four_Board() {
     }
 }
 
+// Function to check if a position (x, y) is within the valid bounds of the board
 bool valid(int x, int y){
     if(x >= 0 && x <= 5 && y >= 0 && y <= 6)
         return true;
@@ -393,6 +397,7 @@ bool valid(int x, int y){
         return false;
 }
 
+// Function to update the board with the specified mark at the given position (x, y)
 bool connect_four_Board::update_board(int x,int y, char mark) {
     if(y >= 0 && y <= 6){
         x = 5;
@@ -413,6 +418,7 @@ bool connect_four_Board::update_board(int x,int y, char mark) {
         return false;
 }
 
+// Function to display the current state of the game board
 void connect_four_Board::display_board() {
     cout << "\n     0         1         2         3         4         5         6\n";
     cout << "\n+---------+---------+---------+---------+---------+---------+---------+";
@@ -426,6 +432,7 @@ void connect_four_Board::display_board() {
     cout << endl << endl;
 }
 
+// (toUp, toDown, toLeft, toRight, toLeftUp, toLeftDown, toRightDown, toRightUp)
 bool connect_four_Board::toUp(int x, int y) {
     int ux;
     for (int i = 1; i < 4; ++i) {
@@ -546,6 +553,7 @@ bool connect_four_Board::toRightUp(int x, int y) {
     return true;
 }
 
+// Function return true if a player has won by connecting four in a row
 bool connect_four_Board::is_winner() {
     int x = getX(); int y = getY();
     if(toLeftUp(x,y) || toRightDown(x,y) ||
@@ -557,14 +565,17 @@ bool connect_four_Board::is_winner() {
     return false;
 }
 
+// Function return true if the game is a draw
 bool connect_four_Board::is_draw() {
     return (n_moves == 6*7 && !is_winner());
 }
 
+// Function to check if the game is over
 bool connect_four_Board::game_is_over() {
     return n_moves >= 6*7;
 }
 
+// connect_four_Board Class Destructor
 connect_four_Board::~connect_four_Board() {
     is4InRow = false;
 }
