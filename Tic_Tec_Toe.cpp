@@ -1,49 +1,27 @@
 // Header
-
-class Tic_Tec_Toe : public Board {
-
-public:
-    char player1Sign  = 'X', player2Sign = 'O' ;
-    int  player1Counter = 0 , player2Counter = 0 ;
-
-
-    Tic_Tec_Toe();
-    bool update_board (int x, int y, char mark);
-    void display_board();
-    bool is_winner();
-    bool is_draw();
-    bool game_is_over();
-    bool chcek_valid(int x , int y );
-
-};
-
-
-
 //Implement
 
 #include <bits/stdc++.h>
 #include"../include/BoardGame_Classes.hpp"
 using namespace std;
-
-// Set the board
 Tic_Tec_Toe::Tic_Tec_Toe () {
     n_rows = n_cols = 5;
     board = new char*[n_rows];
     for (int i = 0; i < n_rows; i++) {
-        board [i] = new char[n_cols];
-        for (int j = 0; j < n_cols; j++)
+        board[i] = new char[n_cols];
+        for (int j = 0; j < n_cols; j++) {
+
             board[i][j] = 0;
+
+        }
     }
 }
 
 
 
-// Return true  if move is valid and put it on board
-// within board boundaries in empty cell
-// Return false otherwise
 bool Tic_Tec_Toe::update_board (int x, int y, char mark){
     // Only update if move is valid
-    if (chcek_valid(x,y) && (board[x][y] == 0)) {
+    if (check_valid(x, y) && (board[x][y] == 0)) {
         board[x][y] = toupper(mark);
         n_moves++;
         return true;
@@ -52,66 +30,79 @@ bool Tic_Tec_Toe::update_board (int x, int y, char mark){
         return false;
 }
 
-// Display the board and the pieces on it
+
 void Tic_Tec_Toe::display_board() {
+    cout << "\n\n+---------+---------+---------+---------+---------+";
+
     for (int i = 0; i < 5 ; ++i) {
         cout << "\n| ";
         for (int j = 0; j < 5 ; ++j) {
-            cout << "(" << i << "," << j << ")";
-            cout << setw(5) << board[i][j] << " |";
+
+cout << "     " ;
+cout << setw(2) << board[i][j] << " | ";
         }
-        cout << "\n---------------------------------------------------------";
+        cout << "\n+---------+---------+---------+---------+---------+";
+
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
-// Returns true if there is any winner
-// either X or O
+
+bool Tic_Tec_Toe::is_draw() {
+    return (n_moves == 24 && player1Counter == player2Counter);
+}
+
+
+bool Tic_Tec_Toe::game_is_over () {
+    return n_moves >= 24;
+}
+
+
 bool Tic_Tec_Toe::is_winner() {
 
     if (n_moves == 24) {
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
-                if (board[i][j] == player1Sign) {
-                    if (chcek_valid(i, j + 1) && chcek_valid(i, j + 2)) { // row
-                        if (board[i][j + 1] == player1Sign && board[i][j + 2] == player1Sign) {
+                if (board[i][j] == 'X') {
+                    if (check_valid(i, j + 1) && check_valid(i, j + 2)) { // row
+                        if (board[i][j + 1] == 'X' && board[i][j + 2] == 'X') {
                             player1Counter++;
                         }
                     }
-                    if (chcek_valid(i + 1, j + 1) && chcek_valid(i + 2, j + 2)) { // principal diag
-                        if (board[i + 1][j + 1] == player1Sign && board[i + 2][j + 2] == player1Sign) {
+                    if (check_valid(i + 1, j + 1) && check_valid(i + 2, j + 2)) { // principal diag
+                        if (board[i + 1][j + 1] == 'X' && board[i + 2][j + 2] == 'X') {
                             player1Counter++;
                         }
                     }
-                    if (chcek_valid(i + 1, j) && chcek_valid(i + 2, j)) { // vertical
-                        if (board[i + 1][j] == player1Sign && board[i + 2][j] == player1Sign) {
+                    if (check_valid(i + 1, j) && check_valid(i + 2, j)) { // vertical
+                        if (board[i + 1][j] == 'X' && board[i + 2][j] == 'X') {
                             player1Counter++;
                         }
                     }
-                    if (chcek_valid(i - 1, j - 1) && chcek_valid(i - 2, j - 2)) { // opposite diag
-                        if (board[i - 1][j - 1] == player1Sign && board[i - 1][j - 2] == player1Sign) {
+                    if (check_valid(i - 1, j - 1) && check_valid(i - 2, j - 2)) { // opposite diag
+                        if (board[i - 1][j - 1] == 'X' && board[i - 2][j - 2] == 'X') {
                             player1Counter++;
                         }
                     }
 
-                } else if (board[i][j] == player2Sign) {
-                    if (chcek_valid(i, j + 1) && chcek_valid(i, j + 2)) { // row
-                        if (board[i][j + 1] == player2Sign && board[i][j + 2] == player2Sign) {
+                } else if (board[i][j] == 'O') {
+                    if (check_valid(i, j + 1) && check_valid(i, j + 2)) { // row
+                        if (board[i][j + 1] == 'O' && board[i][j + 2] == 'O') {
                             player2Counter++;
                         }
                     }
-                    if (chcek_valid(i + 1, j + 1) && chcek_valid(i + 2, j + 2)) { // principal diag
-                        if (board[i + 1][j + 1] == player2Sign && board[i + 2][j + 2] == player2Sign) {
+                    if (check_valid(i + 1, j + 1) && check_valid(i + 2, j + 2)) { // principal diag
+                        if (board[i + 1][j + 1] == 'O' && board[i + 2][j + 2] == 'O') {
                             player2Counter++;
                         }
                     }
-                    if (chcek_valid(i + 1, j) && chcek_valid(i + 2, j)) { // vertical
-                        if (board[i + 1][j] == player2Sign && board[i + 2][j] == player2Sign) {
+                    if (check_valid(i + 1, j) && check_valid(i + 2, j)) { // vertical
+                        if (board[i + 1][j] == 'O' && board[i + 2][j] == 'O') {
                             player2Counter++;
                         }
                     }
-                    if (chcek_valid(i - 1, j - 1) && chcek_valid(i - 2, j - 2)) { // opposite diag
-                        if (board[i - 1][j - 1] == player2Sign && board[i - 1][j - 2] == player2Sign) {
+                    if (check_valid(i - 1, j - 1) && check_valid(i - 2, j - 2)) { // opposite diag
+                        if (board[i - 1][j - 1] == 'O' && board[i - 2][j - 2] == 'O') {
                             player2Counter++;
                         }
                     }
@@ -119,9 +110,13 @@ bool Tic_Tec_Toe::is_winner() {
             }
         }
         if (player1Counter > player2Counter){
+//            cout << player1Sign << " made " << player1Counter << " in_a_row\n" ;
+//            cout << player2Sign << " made " << player2Counter << " in_a_row\n" ;
             cout << player1Sign << " wins\n";
         }
         else if (player2Counter > player1Counter){
+//            cout << player1Sign << " made " << player1Counter << " in_a_row\n" ;
+//            cout << player2Sign << " made " << player2Counter << " in_a_row\n" ;
             cout << player2Sign << " wins\n";
         }
     }
@@ -130,17 +125,133 @@ bool Tic_Tec_Toe::is_winner() {
 
 }
 
-// Return true if 24 moves are done and no winner
-bool Tic_Tec_Toe::is_draw() {
-    return (n_moves == 24 && player1Counter == player2Counter);
-}
 
-bool Tic_Tec_Toe::game_is_over () {
-    return n_moves >= 24;
-}
-
-bool Tic_Tec_Toe::chcek_valid(int x, int y) {
+bool Tic_Tec_Toe::check_valid(int x, int y) {
     return  (x >= 0 && x < 5 && y >= 0 && y < 5) ;
 }
 
+int Tic_Tec_Toe::minimax(int &a, int &b, bool isMaximizing, bool firstTime  , int depth   ) {
+    if (n_moves <= 12) {
+        a = (int) (rand() / (RAND_MAX + 1.0) * 5);
+        b = (int) (rand() / (RAND_MAX + 1.0) * 5);
+        return 0;
+    }
 
+    int count = 1;
+    int result = checkWinner();
+    if (depth <= 0 || result != 1) {
+        return result;
+    }
+
+    int mxScore = -1000, mnScore = 1000;
+    int finalX = -1, finalY = -1;  // Initialize to invalid values
+
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            if (board[i][j] == 0) {
+
+                if (isMaximizing) {
+
+                    board[i][j] = 'X';
+                    n_moves++;
+                    int newScore = minimax(a, b, false, false, depth - 1);
+                    board[i][j] = 0;
+                    n_moves--;
+
+                    if (newScore > mxScore) {
+                        mxScore = newScore;
+                        finalX = i;
+                        finalY = j;
+                    }
+
+                } else {
+                    board[i][j] = 'O';
+                    n_moves++;
+                    int newScore = minimax(a, b, true, false, depth - 1);
+                    board[i][j] = 0;
+                    n_moves--;
+
+                    if (newScore < mnScore) {
+                        mnScore = newScore;
+                        finalX = i;
+                        finalY = j;
+                    }
+
+                }
+            }
+        }
+    }
+
+    if (firstTime) {
+        a = finalX, b = finalY;
+    }
+
+    return isMaximizing ? mxScore : mnScore;
+}
+
+int Tic_Tec_Toe::checkWinner()  {
+    if (n_moves < 24 ) {
+            return 1;
+    }
+        int playc1 = 0 , playerc2 = 0  ;
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+
+                if (board[i][j] == 'X') {
+                    if (check_valid(i, j + 1) && check_valid(i, j + 2)) { // row
+                        if (board[i][j + 1] == 'X' && board[i][j + 2] == 'X') {
+                            playc1++;
+                        }
+                    }
+                    if (check_valid(i + 1, j + 1) && check_valid(i + 2, j + 2)) { // principal diag
+                        if (board[i + 1][j + 1] == 'X' && board[i + 2][j + 2] == 'X') {
+                            playc1++;
+                        }
+                    }
+                    if (check_valid(i + 1, j) && check_valid(i + 2, j)) { // vertical
+                        if (board[i + 1][j] == 'X' && board[i + 2][j] == 'X') {
+                            playc1++;
+                        }
+                    }
+                    if (check_valid(i - 1, j - 1) && check_valid(i - 2, j - 2)) { // opposite diag
+                        if (board[i - 1][j - 1] == 'X' && board[i - 2][j - 2] == 'X') {
+                            playc1++;
+                        }
+                    }
+
+                }
+
+                else if (board[i][j] == 'O') {
+                    if (check_valid(i, j + 1) && check_valid(i, j + 2)) { // row
+                        if (board[i][j + 1] == 'O' && board[i][j + 2] == 'O') {
+                            playerc2++;
+                        }
+                    }
+                    if (check_valid(i + 1, j + 1) && check_valid(i + 2, j + 2)) { // principal diag
+                        if (board[i + 1][j + 1] == 'O' && board[i + 2][j + 2] == 'O') {
+                            playerc2++;
+                        }
+                    }
+                    if (check_valid(i + 1, j) && check_valid(i + 2, j)) { // vertical
+                        if (board[i + 1][j] == 'O' && board[i + 2][j] == 'O') {
+                            playerc2++;
+                        }
+                    }
+                    if (check_valid(i - 1, j - 1) && check_valid(i - 2, j - 2)) { // opposite diag
+                        if (board[i - 1][j - 1] == 'O' && board[i - 2][j - 2] == 'O') {
+                            playerc2++;
+                        }
+                    }
+                }
+            }
+        }
+        if (playc1 > playerc2 && n_moves == 24 ){
+            return 2;
+        }
+        else if (playerc2 > playc1 && n_moves == 24){
+            return -2 ;
+        }
+        else if (playc1 == playerc2 && n_moves == 24) {
+            return 0 ;
+        }
+}
